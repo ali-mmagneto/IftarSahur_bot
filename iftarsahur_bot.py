@@ -78,10 +78,10 @@ async def get_data(ilceid: str) -> Dict[str, List[str]]:
 async def start(client, message):
     kb = [[InlineKeyboardButton('Bot Sahibi ', url="https://t.me/mmagneto"),InlineKeyboardButton('Öyle Kanal', url="https://t.me/mmagneto3")]]
     reply_markup = InlineKeyboardMarkup(kb)
-    app.send_message(chat_id=message.from_user.id, 
-                     text=f"**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`",
-                     parse_mode='md',
-                     reply_markup=reply_markup)
+    await client.send_message(chat_id=message.from_user.id, 
+                              text=f"**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`",
+                              parse_mode='md',
+                              reply_markup=reply_markup)
 
 @app.on_message(f.command('gay'))
 async def gay(client, message):

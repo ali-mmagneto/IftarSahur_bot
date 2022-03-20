@@ -88,12 +88,12 @@ async def iftar(client: Client, msg: types.Message):
     if len(tmp) == 1:
         if uid in users.keys():
             if users[uid] == []:
-                return await msg.reply_text('İlk kullanım: \n`/iftar <il> <ilçe (zorunlu değil)>` \nSonraki kullanımlarınızda il ilçe ismi yazmanıza gerek yoktur. Sadece `/iftar` yazarak kullanabilirsiniz.')
+                return await msg.reply_text('İlk kullanım: \n`/iftar <il> <ilçe (isteğe bağlı)>` \nSonraki kullanımlarınızda il ilçe ismi yazmanıza gerek yoktur. Sadece `/iftar` yazarak kullanabilirsiniz.')
             else:
                 il = users[uid][0]
                 ilce = users[uid][1]
         else:
-            return await msg.reply_text('İlk kullanım: \n`/iftar <il> <ilçe (zorunlu değil)>` \nSonraki kullanımlarınızda il ilçe ismi yazmanıza gerek yoktur. Sadece `/iftar` yazarak kullanabilirsiniz.')
+            return await msg.reply_text('İlk kullanım: \n`/iftar <il> <ilçe (isteğe bağlı)>` \nSonraki kullanımlarınızda il ilçe ismi yazmanıza gerek yoktur. Sadece `/iftar` yazarak kullanabilirsiniz.')
     elif len(tmp) == 2:
         il = tmp[1]
         ilce = tmp[1]
@@ -129,17 +129,17 @@ async def iftar(client: Client, msg: types.Message):
             m = int((kalan % 3600) / 60)  # kalan dakika
             _kalan = f'{h} saat, {m} dakika'
 
-            mesaj = f'{ilce}\nSıradaki İftar Saati: `{ezan_saat}`\nSıradaki iftara kalan süre: `{_kalan}`'
+            mesaj = f'{ilce} için Sıradaki İftar Saati: `{ezan_saat}`\n{ilce} için Sıradaki iftara kalan süre: `{_kalan}`'
             await msg.reply_text(mesaj)
         else:
-            await msg.reply_text(f'{ilce} bulunamadı.')
+            await msg.reply_text(f'Nerde yaşıyon olm sen bulamadım.')
             users[uid] = [il, il]  # ilce bulunamadıysa ilce yerine de ili kaydediyoruz
     else:
         if il == ilce:
             il_ilce = f'{il}'
         else:
             il_ilce = f'{il} {ilce}'
-        await msg.reply_text(f'{il_ilce} bulunamadı.')
+        await msg.reply_text(f'Nerede yaşıyon olm sen bulamadım.')
         users[uid] = []  # karışıklık olmaması için
     dump_users(users)
 
@@ -176,7 +176,7 @@ async def iftar(client: Client, msg: types.Message):
         users[uid] = [il, ilce]
 
     else:
-        return await msg.reply_text('Girilen il/ilçe bulunamadı.')
+        return await msg.reply_text('yaşadağın yeri bulamadım.')
 
     if il in idjson:  # girilen il, il listemizde varsa
         if ilce in idjson[il]:  # girilen ilce, ilce listemizde varsa

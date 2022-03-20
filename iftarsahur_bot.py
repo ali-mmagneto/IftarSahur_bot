@@ -2,6 +2,7 @@ import json
 import re
 import threading
 from datetime import datetime, timedelta
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from os import environ
 from typing import Dict, List
 
@@ -73,10 +74,34 @@ async def get_data(ilceid: str) -> Dict[str, List[str]]:
             return {'bugun': [row_bugun[1], row_bugun[5]], 'yarin': [row_yarin[1], row_yarin[5]]}
 
 
-@app.on_message(f.command(['start', f'start{BOT_USERNAME}'], PREFIX))
-async def start(client: Client, msg: types.Message):
-    await msg.reply_text('**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`')
+@app.on_message(filters.command('start'))
+def start(client, message):
+    kb = [[InlineKeyboardButton('Bot Sahibi ', url="https://t.me/mmagneto"),InlineKeyboardButton('Öyle Kanal', url="https://t.me/mmagneto3")]]
+    reply_markup = InlineKeyboardMarkup(kb)
+    app.send_message(chat_id=message.from_user.id, 
+                     text=f"**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`",
+                     parse_mode='md',
+                     reply_markup=reply_markup)
 
+@app.on_message(filters.command("gay"))
+async def gay(client, message):
+    await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENZ9hh2zSOhVzsO_Q-rQ47dzkdEYey1AACWwoAAmhPeFMYsDTfogHFYiME')
+
+@app.on_message(filters.command("lgbt"))
+async def lgbt(client, message):
+    await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENaC5h20a6KztDBD0d33MUl3ixWXbUiQAChwsAAptsOFDcQh7mhZ_8-yME')
+
+@app.on_message(filters.command("shame"))
+async def shame(client, message):
+    await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENZ95h2zTqdC6aw7dppT09YWkkSZLgewACnAsAAmbnaVOLZkbWc3poriME')
+
+@app.on_message(filters.command("ziyagil"))
+async def ziyagil(client, message):
+    await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENZ-Bh2zU8ZpUw9_WzXL89VJ-OwZLLqwAC8wcAAo5v4VM5r9YgvFcB-CME')
+
+@app.on_message(filters.command("azgin"))
+async def azgin(client, message):
+    await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENZ-Rh2zWEfeSWp4cQzWfVvf_CPaOtEQAC3wkAAuy24FMSaWxREle6jyME')
 
 @app.on_message(f.command(['iftar', f'iftar{BOT_USERNAME}'], PREFIX))
 async def iftar(client: Client, msg: types.Message):

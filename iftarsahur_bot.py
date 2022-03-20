@@ -79,7 +79,7 @@ async def start(client, message):
     kb = [[InlineKeyboardButton('Bot Sahibi ', url="https://t.me/mmagneto"),InlineKeyboardButton('Öyle Kanal', url="https://t.me/mmagneto3")]]
     reply_markup = InlineKeyboardMarkup(kb)
     await client.send_message(chat_id=message.from_user.id, 
-                              text=f"**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`\n\n**Öyle Komutlar**:\n`/azgin` \n`/ziyagil` \n/shame \n`/lgbt` \n`/gay`",
+                              text=f"**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`\n\n**Öyle Komutlar**:\n`/azgin` \n`/ziyagil` \n`/shame` \n`/lgbt` \n`/gay`",
                               parse_mode='md',
                               reply_markup=reply_markup)
 

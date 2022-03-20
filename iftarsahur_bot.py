@@ -75,7 +75,7 @@ async def get_data(ilceid: str) -> Dict[str, List[str]]:
 
 @app.on_message(f.command(['start', f'start{BOT_USERNAME}'], PREFIX))
 async def start(client: Client, msg: types.Message):
-    await msg.reply_text('/sahur \n/iftar')
+    await msg.reply_text('**Bot Kullanımı**: \n`/sahur yaşadığın yer (isteğe bağlı ilçe)` \n`/iftar Yaşadığın yer (isteğe bağlı ilçe)`')
 
 
 @app.on_message(f.command(['iftar', f'iftar{BOT_USERNAME}'], PREFIX))

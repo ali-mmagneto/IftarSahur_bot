@@ -1,9 +1,6 @@
-version: "3.9"
-
 services:
   clonebot:
-    image: ghcr.io/missemily2022/clonebot:new
-    container_name: clonebot
+    container_name: iftar_sahur_bot
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - SUDO=${SUDO}

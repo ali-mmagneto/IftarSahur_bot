@@ -83,7 +83,7 @@ async def start(client, message):
                               parse_mode='md',
                               reply_markup=reply_markup)
 
-@app.on_message(f.command('gay'))
+@app.on_message(f.command('sok'))
 async def gay(client, message):
     await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENZ9hh2zSOhVzsO_Q-rQ47dzkdEYey1AACWwoAAmhPeFMYsDTfogHFYiME')
 

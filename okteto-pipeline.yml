@@ -4,4 +4,4 @@ deploy:
   - API_HASH=${API_HASH}
   - API_ID=${API_ID}   
   - BOT_USERNAME=${BOT_USERNAME}
-  ["python", "iftarsahur_bot.py"] 
+ : ["python", "iftarsahur_bot.py"] 

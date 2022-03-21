@@ -1,4 +1,4 @@
-icon: https://apps.okteto.com/movies/icon.png
+version: "3.9"
 
 services:
   iftarbot:

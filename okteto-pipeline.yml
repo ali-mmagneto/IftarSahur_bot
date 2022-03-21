@@ -1,8 +1,8 @@
 icon: https://apps.okteto.com/movies/icon.png
 deploy:
-  - okteto build -t okteto.dev/api:${OKTETO_GIT_COMMIT} api
-  - okteto build -t okteto.dev/frontend:${OKTETO_GIT_COMMIT} frontend
-  - helm upgrade --install movies chart --set tag=${OKTETO_GIT_COMMIT}
+  - okteto build -t okteto.dev/api:python3 iftarsahur_bot.py api
+  - okteto build -t okteto.dev/frontend:python3 iftarsahur_bot.py frontend
+  - helm upgrade --install movies chart --set tag=$python3 iftarsahur_bot.py
 devs:
   - api/okteto.yml
   - frontend/okteto.yml

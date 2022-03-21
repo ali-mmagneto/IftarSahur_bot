@@ -1,6 +1,5 @@
 deploy:
   - okteto build -t pyhton iftarsahur_bot.py
-
 services:
   name: iftarbot 
   image: python:3

@@ -1,5 +1,3 @@
 deploy: 
-  docker: 
-      worker: Dockerfile
-run:
+   run:
    worker: python3 iftarsahur_bot.py

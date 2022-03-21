@@ -5,6 +5,5 @@ deploy:
   - API_HASH=${API_HASH}
   - API_ID=${API_ID}
   - BOT_USERNAME=${BOT_USERNAME}
-image:
-  command: ["python", "iftarsahur_bot.py"]
-  dockerfile: Dockerfile
+image: python:3
+command: ["python", "iftarsahur_bot.py"] 

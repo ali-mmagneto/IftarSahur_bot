@@ -1,3 +1,3 @@
 deploy: 
-  ["python", "iftarsahur_bot.py"]
+  ["worker:", "python3", "iftarsahur_bot.py"]
 

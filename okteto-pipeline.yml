@@ -5,5 +5,4 @@ deploy:
   - API_HASH=${API_HASH}
   - API_ID=${API_ID}
   - BOT_USERNAME=${BOT_USERNAME}
-run:
-  - python3 iftarsahur_bot.py
+command: ["python", "iftarsahur_bot.py"]

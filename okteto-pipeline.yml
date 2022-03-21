@@ -1,5 +1,5 @@
 services:
-  deploy:
+  run:
     container_name: iftar_sahur_bot
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
@@ -7,6 +7,4 @@ services:
       - API_HASH=${API_HASH}
       - API_ID=${API_ID}
       - BOT_USERNAME=${BOT_USERNAME}
-    ports:
-      - 8080:8080
     restart: unless-stopped

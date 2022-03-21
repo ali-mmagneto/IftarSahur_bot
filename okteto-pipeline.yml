@@ -1,6 +1,4 @@
 deploy:
-  - okteto build -t pyhton iftarsahur_bot.py
-selector:
   name: iftarbot 
   image: python:3
   command: ["python", "iftarsahur_bot.py"] 

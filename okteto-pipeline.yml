@@ -1,6 +1,4 @@
 deploy: 
-  command:
-    ["worker", "python3", "iftarsahur_bot.py"]
   environment:
     - BOT_TOKEN=${BOT_TOKEN}
     - SUDO=${SUDO}

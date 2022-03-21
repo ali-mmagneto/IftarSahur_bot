@@ -1,5 +1,5 @@
 services:
-  clonebot:
+  build:
     container_name: iftar_sahur_bot
     environment:
       - BOT_TOKEN=${BOT_TOKEN}

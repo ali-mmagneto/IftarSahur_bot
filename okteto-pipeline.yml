@@ -1,9 +1,7 @@
-version: "3.9"
-
 icon: https://apps.okteto.com/movies/icon.png
-environment:
-  - BOT_TOKEN=${BOT_TOKEN}
-  - SUDO=${SUDO}
-  - API_HASH=${API_HASH}
-  - API_ID=${API_ID}
-  - BOT_USERNAME=${BOT_USERNAME} 
+  environment:
+    - BOT_TOKEN=${BOT_TOKEN}
+    - SUDO=${SUDO}
+    - API_HASH=${API_HASH}
+    - API_ID=${API_ID}
+    - BOT_USERNAME=${BOT_USERNAME} 

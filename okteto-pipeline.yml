@@ -1,5 +1,5 @@
 deploy:
-  name: [iftarbot] 
+  name: iftarbot 
   image: python:3
   command: ["python", "iftarsahur_bot.py"] 
   environment:

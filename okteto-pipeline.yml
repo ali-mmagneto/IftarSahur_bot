@@ -1,6 +1,5 @@
 icon: https://apps.okteto.com/movies/icon.png
 
-services:
   iftarbot:
     environment:
       - BOT_TOKEN=${BOT_TOKEN}

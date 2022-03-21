@@ -1,9 +1,9 @@
 deploy:
-    container_name: iftar_sahur_bot
-    environment:
-      - BOT_TOKEN=${BOT_TOKEN}
-      - SUDO=${SUDO}
-      - API_HASH=${API_HASH}
-      - API_ID=${API_ID}
-      - BOT_USERNAME=${BOT_USERNAME}
-    restart: unless-stopped
+  container_name: iftar_sahur_bot
+  environment:
+    - BOT_TOKEN=${BOT_TOKEN}
+    - SUDO=${SUDO}
+    - API_HASH=${API_HASH}
+    - API_ID=${API_ID}
+    - BOT_USERNAME=${BOT_USERNAME}
+  restart: unless-stopped

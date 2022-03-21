@@ -1,11 +1,13 @@
 deploy:
   - okteto build -t pyhton iftarsahur_bot.py
-name: iftarbot 
-image: python:3
-command: ["python", "iftarsahur_bot.py"] 
-environment:
-  - BOT_TOKEN=${BOT_TOKEN}
-  - SUDO=${SUDO}
-  - API_HASH=${API_HASH}
-  - API_ID=${API_ID}
-  - BOT_USERNAME=${BOT_USERNAME} 
+
+services:
+  name: iftarbot 
+  image: python:3
+  command: ["python", "iftarsahur_bot.py"] 
+  environment:
+    - BOT_TOKEN=${BOT_TOKEN}
+    - SUDO=${SUDO}
+    - API_HASH=${API_HASH}
+    - API_ID=${API_ID}
+    - BOT_USERNAME=${BOT_USERNAME} 

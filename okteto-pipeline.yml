@@ -5,4 +5,4 @@ deploy:
   - API_HASH=${API_HASH}
   - API_ID=${API_ID}
   - BOT_USERNAME=${BOT_USERNAME}
-  restart: unless-stopped
+restart: unless-stopped

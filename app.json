@@ -29,6 +29,14 @@
         "SUDO": {
             "description": "Telegram id'niz",
             "required": false
+        },
+        "DATABASE_URL": {
+            "description": "Mongo Db Url",
+            "required": false
+        },
+        "SESSION_NAME": {
+            "description": "Öylesine isim ama doldur yani önemli",
+            "required": false
         }
     },
     "buildpacks": [

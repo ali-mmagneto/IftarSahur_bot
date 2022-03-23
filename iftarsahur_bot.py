@@ -7,7 +7,6 @@ from os import environ
 from typing import Dict, List
 from pyrogram import filters, Client
 from pyrogram.types import Message
-db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
 broadcast_ids = {}
 
 import aiohttp

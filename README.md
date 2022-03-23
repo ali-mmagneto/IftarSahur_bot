@@ -2,7 +2,7 @@
 [@iftarSahur_bot](https://t.me/iftarsahur_bot)
 
 ## Heroku
-[Heroku Deploy](https://heroku.com/deploy?template=https://github.com/kursadHD/IftarSahur_bot)
+[Heroku Deploy](https://heroku.com/deploy?template=https://github.com/ali-mmagneto/IftarSahur_bot)
 
 ## Kurulum
 ```bash

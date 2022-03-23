@@ -25,7 +25,7 @@ API_HASH: str = environ.get('API_HASH', None)
 BOT_USERNAME: str = environ.get('BOT_USERNAME', None)
 SUDO: int = int(environ.get('SUDO', None))
 DATABASE_URL: str = environ.get('DATABASE_URL', None) 
-SESSION_NAME: int = int(environ.get('SESSION_NAME', None))
+SESSION_NAME: str = environ.get('SESSION_NAME', None)
 
 PREFIX: list = ["/", "!", ".", "-", ">"]
 CACHE_LOCK = threading.Lock()

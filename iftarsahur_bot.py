@@ -78,13 +78,13 @@ async def get_data(ilceid: str) -> Dict[str, List[str]]:
             _cache[ilceid][yarin] = [row_yarin[1], row_yarin[5]]
             return {'bugun': [row_bugun[1], row_bugun[5]], 'yarin': [row_yarin[1], row_yarin[5]]}
 
-@app.on_message(f.command('status') & f.private & f.user(Var.SUDO) & ~f.edited)
+@app.on_message(f.command('status') & f.private & f.user(SUDO) & ~f.edited)
 async def sts(c: Client, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(text=f"**DataBase Kayıtlı Toplam Kullanıcı :** `{total_users}`", parse_mode="Markdown", quote=True)
 
 
-@app.on_message(f.command("broadcast") & f.private & f.user(Var.SUDO) & f.reply & ~f.edited)
+@app.on_message(f.command("broadcast") & f.private & f.user(SUDO) & f.reply & ~f.edited)
 async def broadcast_(c, m):
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message

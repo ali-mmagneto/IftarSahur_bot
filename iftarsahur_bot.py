@@ -5,6 +5,10 @@ from datetime import datetime, timedelta
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from os import environ
 from typing import Dict, List
+from pyrogram import filters, Client
+from pyrogram.types import Message
+db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
+broadcast_ids = {}
 
 import aiohttp
 import pytz
@@ -21,6 +25,8 @@ API_ID: int = int(environ.get('API_ID', None))
 API_HASH: str = environ.get('API_HASH', None)
 BOT_USERNAME: str = environ.get('BOT_USERNAME', None)
 SUDO: int = int(environ.get('SUDO', None))
+DATABASE_URL: str = environ.get('DATABASE_URL', None) 
+SESSION_NAME: int = int(environ.get('SESSION_NAME', None))
 
 PREFIX: list = ["/", "!", ".", "-", ">"]
 CACHE_LOCK = threading.Lock()
@@ -72,6 +78,77 @@ async def get_data(ilceid: str) -> Dict[str, List[str]]:
             _cache[ilceid][bugun] = [row_bugun[1], row_bugun[5]]
             _cache[ilceid][yarin] = [row_yarin[1], row_yarin[5]]
             return {'bugun': [row_bugun[1], row_bugun[5]], 'yarin': [row_yarin[1], row_yarin[5]]}
+
+@app.on_message(f.command('status') & f.private & f.user(Var.SUDO) & ~f.edited)
+async def sts(c: Client, m: Message):
+    total_users = await db.total_users_count()
+    await m.reply_text(text=f"**DataBase Kayıtlı Toplam Kullanıcı :** `{total_users}`", parse_mode="Markdown", quote=True)
+
+
+@app.on_message(f.command("broadcast") & f.private & f.user(Var.SUDO) & f.reply & ~f.edited)
+async def broadcast_(c, m):
+    all_users = await db.get_all_users()
+    broadcast_msg = m.reply_to_message
+    while True:
+        broadcast_id = ''.join([random.choice(string.ascii_letters) for i in range(3)])
+        if not broadcast_ids.get(broadcast_id):
+            break
+    out = await m.reply_text(
+        text=f"Yayın başladı! Tüm kullanıcılar bilgilendirildiğinde günlük dosyası ile bilgilendirileceksiniz."
+    )
+    start_time = time.time()
+    total_users = await db.total_users_count()
+    done = 0
+    failed = 0
+    success = 0
+    broadcast_ids[broadcast_id] = dict(
+        total=total_users,
+        current=done,
+        failed=failed,
+        success=success
+    )
+    async with aiofiles.open('broadcast.txt', 'w') as broadcast_log_file:
+        async for user in all_users:
+            sts, msg = await send_msg(
+                user_id=int(user['id']),
+                message=broadcast_msg
+            )
+            if msg is not None:
+                await broadcast_log_file.write(msg)
+            if sts == 200:
+                success += 1
+            else:
+                failed += 1
+            if sts == 400:
+                await db.delete_user(user['id'])
+            done += 1
+            if broadcast_ids.get(broadcast_id) is None:
+                break
+            else:
+                broadcast_ids[broadcast_id].update(
+                    dict(
+                        current=done,
+                        failed=failed,
+                        success=success
+                    )
+                )
+    if broadcast_ids.get(broadcast_id):
+        broadcast_ids.pop(broadcast_id)
+    completed_in = datetime.timedelta(seconds=int(time.time() - start_time))
+    await asyncio.sleep(3)
+    await out.delete()
+    if failed == 0:
+        await m.reply_text(
+            text=f"Yayın Tamamlandı `{completed_in}`\n\nToplam Kullanıcı {total_users}.\nToplam Gönderilen {done}, {success} Başarılı ve {failed} Başarısız.",
+            quote=True
+        )
+    else:
+        await m.reply_document(
+            document='broadcast.txt',
+            caption=f"Yayın Tamamlandı `{completed_in}`\n\nToplam Kullanıcı {total_users}.\nToplam Gönderilen {done}, {success} Başarılı ve {failed} Başarısız.",
+            quote=True
+        )
+    os.remove('broadcast.txt')
 
 
 @app.on_message(f.command('start'))

@@ -1,15 +1,8 @@
 import json
 import os, youtube_dl, requests, time
-from config import Config
 from youtube_search import YoutubeSearch
 from pyrogram.handlers import MessageHandler
 from pyrogram import Client, filters
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message
-)
-
 import re
 import threading
 from datetime import datetime, timedelta

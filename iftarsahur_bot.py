@@ -119,9 +119,7 @@ async def a(client, message):
            await m.edit('Bu müziği bulamadım')
             return
     except Exception as e:
-       await m.edit(
-            "Bu müziği bulamadım😔"
-        )
+       await m.edit("Bu müziği bulamadım😔")
         print(str(e))
         return
    await m.edit("`Müziği buldum indiriyom.`")

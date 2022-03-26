@@ -1,4 +1,15 @@
 import json
+import os, youtube_dl, requests, time
+from config import Config
+from youtube_search import YoutubeSearch
+from pyrogram.handlers import MessageHandler
+from pyrogram import Client, filters
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message
+)
+
 import re
 import threading
 from datetime import datetime, timedelta
@@ -26,6 +37,7 @@ BOT_USERNAME: str = environ.get('BOT_USERNAME', None)
 SUDO: int = int(environ.get('SUDO', None))
 DATABASE_URL: str = environ.get('DATABASE_URL', None) 
 SESSION_NAME: str = environ.get('SESSION_NAME', None)
+PLAYLIST_ID: str = environ.get('PLAYLIST_ID', None) 
 
 PREFIX: list = ["/", "!", ".", "-", ">"]
 CACHE_LOCK = threading.Lock()
@@ -83,6 +95,68 @@ async def sts(c: Client, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(text=f"**DataBase Kayıtlı Toplam Kullanıcı :** `{total_users}`", parse_mode="Markdown", quote=True)
 
+@app.on_message(f.command('music'))
+async def a(client, message):
+    query = ''
+    for i in message.command[1:]:
+        query += ' ' + str(i)
+    print(query)
+    m = message.reply('`Arıyom...`')
+    ydl_opts = {"format": "bestaudio[ext=m4a]"}
+    try:
+        results = []
+        count = 0
+        while len(results) == 0 and count < 6:
+            if count>0:
+                time.sleep(1)
+            results = YoutubeSearch(query, max_results=1).to_dict()
+            count += 1
+        try:
+            link = f"https://youtube.com{results[0]['url_suffix']}"
+            title = results[0]["title"]
+            thumbnail = results[0]["thumbnails"][0]
+            duration = results[0]["duration"]
+            views = results[0]["views"]
+            thumb_name = f'thumb{message.message_id}.jpg'
+            thumb = requests.get(thumbnail, allow_redirects=True)
+            open(thumb_name, 'wb').write(thumb.content)
+
+        except Exception as e:
+            print(e)
+            m.edit('Bu müziği bulamadım')
+            return
+    except Exception as e:
+        m.edit(
+            "Bu müziği bulamadım😔"
+        )
+        print(str(e))
+        return
+    m.edit("`Müziği buldum indiriyom.`")
+    try:
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(link, download=False)
+            audio_file = ydl.prepare_filename(info_dict)
+            ydl.process_info(info_dict)
+        rep = f"İndirildi [İndiren Bot](https://t.me/MusicDownBot)"
+        secmul, dur, dur_arr = 1, 0, duration.split(':')
+        for i in range(len(dur_arr)-1, -1, -1):
+            dur += (int(dur_arr[i]) * secmul)
+            secmul *= 60
+        message.reply_audio(audio_file, caption=rep, parse_mode='md',quote=False, title=title, duration=dur, thumb=thumb_name, performer="@MusicDownBot")
+        m.delete()
+        bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@MusicDownBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
+    except Exception as e:
+        m.edit('**Başaramadık abi**')
+        print(e)
+    try:
+        os.remove(audio_file)
+        os.remove(thumb_name)
+    except Exception as e:
+        print(e)
+
+def time_to_seconds(time):
+    stringt = str(time)
+    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(':'))))
 
 @app.on_message(f.command("broadcast") & f.private & f.user(SUDO) & f.reply & ~f.edited)
 async def broadcast_(c, m):

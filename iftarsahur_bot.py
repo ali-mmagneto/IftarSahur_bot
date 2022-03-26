@@ -116,15 +116,15 @@ async def a(client, message):
 
         except Exception as e:
             print(e)
-            m.edit('Bu müziği bulamadım')
+           await m.edit('Bu müziği bulamadım')
             return
     except Exception as e:
-        m.edit(
+       await m.edit(
             "Bu müziği bulamadım😔"
         )
         print(str(e))
         return
-    m.edit("`Müziği buldum indiriyom.`")
+   await m.edit("`Müziği buldum indiriyom.`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -139,7 +139,7 @@ async def a(client, message):
         m.delete()
         bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@MusicDownBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:
-        m.edit('**Başaramadık abi**')
+       await m.edit('**Başaramadık abi**')
         print(e)
     try:
         os.remove(audio_file)

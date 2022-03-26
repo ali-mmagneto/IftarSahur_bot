@@ -116,10 +116,10 @@ async def a(client, message):
 
         except Exception as e:
             print(e)
-           await m.edit('Bu müziği bulamadım')
+            await m.edit('Bu müziği bulamadım')
             return
     except Exception as e:
-       await m.edit("Bu müziği bulamadım😔")
+        await m.edit("Bu müziği bulamadım😔")
         print(str(e))
         return
    await m.edit("`Müziği buldum indiriyom.`")
@@ -137,7 +137,7 @@ async def a(client, message):
         m.delete()
         bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@MusicDownBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:
-       await m.edit('**Başaramadık abi**')
+        await m.edit('**Başaramadık abi**')
         print(e)
     try:
         os.remove(audio_file)

@@ -122,7 +122,7 @@ async def a(client, message):
         await m.edit("Bu müziği bulamadım😔")
         print(str(e))
         return
-   await m.edit("`Müziği buldum indiriyom.`")
+        await m.edit("`Müziği buldum indiriyom.`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)

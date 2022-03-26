@@ -128,14 +128,14 @@ async def a(client, message):
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = f"İndirildi [İndiren Bot](https://t.me/MusicDownBot)"
+        rep = f"İndirildi [İndiren Bot](https://t.me/iftarvesahurBot)"
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
             secmul *= 60
-        await message.reply_audio(audio_file, caption=rep, parse_mode='md',quote=False, title=title, duration=dur, thumb=thumb_name, performer="@MusicDownBot")
+        await message.reply_audio(audio_file, caption=rep, parse_mode='md',quote=False, title=title, duration=dur, thumb=thumb_name, performer="@iftarvesahurBot)
         await m.delete()
-        await bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@MusicDownBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
+        await bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@iftarvesahurBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:
         await m.edit('**Başaramadık abi**')
         print(e)

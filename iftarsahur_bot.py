@@ -177,13 +177,10 @@ async def a(client, message):
 
         except Exception as e:
             print(e)
-            await m.edit('Bu müziği bulamadım')
             return
     except Exception as e:
-        await m.edit("Bu müziği bulamadım😔")
         print(str(e))
         return
-        await m.edit("`Müziği buldum indiriyom.`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -198,7 +195,6 @@ async def a(client, message):
         await m.delete()
         await bot.send_video(chat_id=Config.PLAYLIST_ID, video=video_file, caption=rep, parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:
-        await m.edit('**Başaramadık abi**')
         print(e)
     try:
         os.remove(video_file)

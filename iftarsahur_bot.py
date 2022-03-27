@@ -191,7 +191,7 @@ async def a(client, message):
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
             secmul *= 60
-        await message.reply_video(video=dldir, caption=file_name, duration=duration, reply_to_message_id=update.message_id, progress=progress_for_pyrogram)
+        await message.reply_video(caption=file_name, duration=duration, reply_to_message_id=update.message_id, progress=progress_for_pyrogram)
         await m.delete()
         await bot.send_video(chat_id=Config.PLAYLIST_ID, video=video_file, caption=rep, parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:

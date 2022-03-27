@@ -149,6 +149,67 @@ def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(':'))))
 
+@app.on_message(f.command('video'))
+async def a(client, message):
+    query = ''
+    for i in message.command[1:]:
+        query += ' ' + str(i)
+    print(query)
+    m = message.reply('`Arıyom...`')
+    ydl_opts = {"format": "bestvideo[ext=mp4]"}
+    try:
+        results = []
+        count = 0
+        while len(results) == 0 and count < 6:
+            if count>0:
+                time.sleep(1)
+            results = YoutubeSearch(query, max_results=1).to_dict()
+            count += 1
+        try:
+            link = f"https://youtube.com{results[0]['url_suffix']}"
+            title = results[0]["title"]
+            thumbnail = results[0]["thumbnails"][0]
+            duration = results[0]["duration"]
+            views = results[0]["views"]
+            thumb_name = f'thumb{message.message_id}.jpg'
+            thumb = requests.get(thumbnail, allow_redirects=True)
+            open(thumb_name, 'wb').write(thumb.content)
+
+        except Exception as e:
+            print(e)
+            await m.edit('Bu müziği bulamadım')
+            return
+    except Exception as e:
+        await m.edit("Bu müziği bulamadım😔")
+        print(str(e))
+        return
+        await m.edit("`Müziği buldum indiriyom.`")
+    try:
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(link, download=False)
+            audio_file = ydl.prepare_filename(info_dict)
+            ydl.process_info(info_dict)
+        rep = f"İndirildi [İndiren Bot](https://t.me/iftarvesahurBot)"
+        secmul, dur, dur_arr = 1, 0, duration.split(':')
+        for i in range(len(dur_arr)-1, -1, -1):
+            dur += (int(dur_arr[i]) * secmul)
+            secmul *= 60
+        await message.reply_video(video_file, caption=rep, parse_mode='md',quote=False, title=title, duration=dur, thumb=thumb_name)
+        await m.delete()
+        await bot.send_video(chat_id=Config.PLAYLIST_ID, video=video_file, caption=rep, parse_mode='md', title=title, duration=dur, thumb=thumb_name)
+    except Exception as e:
+        await m.edit('**Başaramadık abi**')
+        print(e)
+    try:
+        os.remove(video_file)
+        os.remove(thumb_name)
+    except Exception as e:
+        print(e)
+
+def time_to_seconds(time):
+    stringt = str(time)
+    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(':'))))
+
 @app.on_message(f.command("broadcast") & f.private & f.user(SUDO) & f.reply & ~f.edited)
 async def broadcast_(c, m):
     all_users = await db.get_all_users()

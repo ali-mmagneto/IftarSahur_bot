@@ -118,11 +118,11 @@ async def a(client, message):
             print(e)
             await m.edit('Bu müziği bulamadım')
             return
-    except Exception as e:
-        await m.edit("Bu müziği bulamadım😔")
-        print(str(e))
-        return
-        await m.edit("`Müziği buldum indiriyom.`")
+        except Exception as e:
+            await m.edit("Bu müziği bulamadım😔")
+            print(str(e))
+            return
+            await m.edit("`Müziği buldum indiriyom.`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -178,9 +178,9 @@ async def a(client, message):
         except Exception as e:
             print(e)
             return
-    except Exception as e:
-        print(str(e))
-        return
+        except Exception as e:
+            print(str(e))
+            return
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)

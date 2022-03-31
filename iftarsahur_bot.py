@@ -1,5 +1,6 @@
 import json
 import os, youtube_dl, requests, time
+from iftarsahur_bot import Var
 from youtube_search import YoutubeSearch
 from pyrogram.handlers import MessageHandler
 from pyrogram import Client, filters

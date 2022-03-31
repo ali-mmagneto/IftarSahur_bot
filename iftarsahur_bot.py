@@ -232,7 +232,7 @@ async def start(client, message):
 
 @app.on_message(f.command('ezan'))
 async def ezan(client, message):
-    await client.send_audio(message.chat.id, 'CQACAgQAAxkBAAEPC0FiRbzU_5avGXNcz2t5a4ikmPI5GQACgwsAAn9qMVK_PemvGxixriME')
+    await client.send_media(message.chat.id, 'CQACAgQAAxkBAAEPC0FiRbzU_5avGXNcz2t5a4ikmPI5GQACgwsAAn9qMVK_PemvGxixriME')
 
 @app.on_message(f.command('lgbt'))
 async def lgbt(client, message):

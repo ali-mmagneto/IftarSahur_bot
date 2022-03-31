@@ -8,3 +8,4 @@ git+https://github.com/ytdl-org/youtube-dl
 youtube_search
 requests
 ffmpeg
+telethon

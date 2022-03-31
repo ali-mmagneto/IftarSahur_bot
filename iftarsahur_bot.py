@@ -100,7 +100,7 @@ async def a(client, message):
     for i in message.command[1:]:
         query += ' ' + str(i)
     print(query)
-    m = message.reply('`Arıyom...`')
+    msg.reply('`Arıyom...`')
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = []
@@ -122,13 +122,13 @@ async def a(client, message):
 
         except Exception as e:
             print(e)
-            await m.edit('Bu müziği bulamadım')
+            await msg.edit('Bu müziği bulamadım')
             return
     except Exception as e:
-        await m.edit("Bu müziği bulamadım😔")
+        await msg.edit("Bu müziği bulamadım😔")
         print(str(e))
         return
-        await m.edit("`Müziği buldum indiriyom.`")
+        await msg.edit("`Müziği buldum indiriyom.`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -143,7 +143,7 @@ async def a(client, message):
         await m.delete()
         await bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@iftarvesahurBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:
-        await m.edit('**Başaramadık abi**')
+        await msg.edit('**Başaramadık abi**')
         print(e)
     try:
         os.remove(audio_file)
@@ -255,7 +255,7 @@ async def azgin(client, message):
 async def iftar(client: Client, msg: types.Message):
     global users
     if msg.from_user.id in GAY_USER: 
-         await c.send_message(
+         await msg.reply_text(
              chat_id=m.chat.id, 
              text="Sen Gaysin dostum")
          return
@@ -325,7 +325,7 @@ async def iftar(client: Client, msg: types.Message):
 async def iftar(client: Client, msg: types.Message):
     global users
     if msg.from_user.id in GAY_USER: 
-                await c.send_message(
+                await msg.reply_text(
                     chat_id=m.chat.id, 
                     text="Sen Gaysin dostum")
                 return

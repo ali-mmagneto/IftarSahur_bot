@@ -256,7 +256,6 @@ async def iftar(client: Client, msg: types.Message):
     global users
     if msg.from_user.id in GAY_USER: 
          await msg.reply_text(
-             chat_id=msg.chat.id, 
              text="Sen Gaysin dostum")
          return
     uid = msg.from_user.id
@@ -326,7 +325,6 @@ async def iftar(client: Client, msg: types.Message):
     global users
     if msg.from_user.id in GAY_USER: 
                 await msg.reply_text(
-                    chat_id=msg.chat.id, 
                     text="Sen Gaysin dostum")
                 return
     uid = msg.from_user.id

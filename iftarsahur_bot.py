@@ -1,6 +1,5 @@
 import json
 import os, youtube_dl, requests, time
-from iftarsahur_bot import Var
 from youtube_search import YoutubeSearch
 from pyrogram.handlers import MessageHandler
 from pyrogram import Client, filters
@@ -256,7 +255,7 @@ async def azgin(client, message):
 async def iftar(client: Client, msg: types.Message):
     global users
     await update.reply_chat_action("typing")
-    if msg.from_user.id in Var.GAY_USER: 
+    if msg.from_user.id in GAY_USER: 
          await c.send_message(
              chat_id=m.chat.id, 
              text="Sen banlısın dostum")

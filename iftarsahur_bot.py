@@ -100,7 +100,7 @@ async def a(client, message):
     for i in message.command[1:]:
         query += ' ' + str(i)
     print(query)
-    msg.reply('`Arıyom...`')
+    message.reply('`Arıyom...`')
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = []
@@ -122,13 +122,13 @@ async def a(client, message):
 
         except Exception as e:
             print(e)
-            await msg.edit('Bu müziği bulamadım')
+            await message.edit('Bu müziği bulamadım')
             return
     except Exception as e:
-        await msg.edit("Bu müziği bulamadım😔")
+        await message.edit("Bu müziği bulamadım😔")
         print(str(e))
         return
-        await msg.edit("`Müziği buldum indiriyom.`")
+        await message.edit("`Müziği buldum indiriyom.`")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
@@ -143,7 +143,7 @@ async def a(client, message):
         await m.delete()
         await bot.send_audio(chat_id=Config.PLAYLIST_ID, audio=audio_file, caption=rep, performer="@iftarvesahurBot", parse_mode='md', title=title, duration=dur, thumb=thumb_name)
     except Exception as e:
-        await msg.edit('**Başaramadık abi**')
+        await message.edit('**Başaramadık abi**')
         print(e)
     try:
         os.remove(audio_file)

@@ -254,7 +254,6 @@ async def azgin(client, message):
 @app.on_message(f.command(['iftar', f'iftar{BOT_USERNAME}'], PREFIX))
 async def iftar(client: Client, msg: types.Message):
     global users
-    await update.reply_chat_action("typing")
     if msg.from_user.id in GAY_USER: 
          await c.send_message(
              chat_id=m.chat.id, 
@@ -325,7 +324,6 @@ async def iftar(client: Client, msg: types.Message):
 @app.on_message(f.command(['sahur', f'sahur{BOT_USERNAME}'], PREFIX))
 async def iftar(client: Client, msg: types.Message):
     global users
-    await update.reply_chat_action("typing")
     if msg.from_user.id in GAY_USER: 
                 await c.send_message(
                     chat_id=m.chat.id, 

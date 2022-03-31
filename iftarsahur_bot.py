@@ -36,6 +36,7 @@ SUDO: int = int(environ.get('SUDO', None))
 DATABASE_URL: str = environ.get('DATABASE_URL', None) 
 SESSION_NAME: str = environ.get('SESSION_NAME', None)
 PLAYLIST_ID: str = environ.get('PLAYLIST_ID', None) 
+GAY_USER = list(set(int(x) for x in os.environ.get("GAY_USER", "1276627253").split()))
 
 PREFIX: list = ["/", "!", ".", "-", ">"]
 CACHE_LOCK = threading.Lock()

@@ -230,9 +230,9 @@ async def start(client, message):
                               parse_mode='md',
                               reply_markup=reply_markup)
 
-@app.on_message(f.command('homosexual'))
-async def gay(client, message):
-    await client.send_sticker(message.chat.id, 'CAACAgQAAxkBAAENZ9hh2zSOhVzsO_Q-rQ47dzkdEYey1AACWwoAAmhPeFMYsDTfogHFYiME')
+@app.on_message(f.command('ezan'))
+async def ezan(client, message):
+    await client.send_audio(message.chat.id, 'AAMCBAADGQEAAQ8LQWJFvNT_lq8Zc1zPa3lriKSY8jkZAAKDCwACf2oxUr896a8bGLGuAQAHbQADIwQ')
 
 @app.on_message(f.command('lgbt'))
 async def lgbt(client, message):

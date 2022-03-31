@@ -95,7 +95,7 @@ async def sts(c: Client, m: Message):
 
 
 
-@client.on(events.NewMessage(pattern="^/tag ?(.*)"))
+@Client.on(events.NewMessage(pattern="^/tag ?(.*)"))
 async def mentionall(event):
   global anlik_calisan
   if event.is_private:
@@ -154,7 +154,7 @@ async def mentionall(event):
         usrnum = 0
         usrtxt = ""
 
-@client.on(events.NewMessage(pattern='^(?i)/cancel'))
+@Client.on(events.NewMessage(pattern='^(?i)/cancel'))
 async def cancel(event):
   global anlik_calisan
   anlik_calisan.remove(event.chat_id)

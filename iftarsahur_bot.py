@@ -254,9 +254,12 @@ async def azgin(client, message):
 @app.on_message(f.command(['iftar', f'iftar{BOT_USERNAME}'], PREFIX))
 async def iftar(client: Client, msg: types.Message):
     global users
-    if msg.from_user.id in GAY_USER: 
+    if msg.from_user.id in GAY_USER:
+         kbg = [[InlineKeyboardButton('grup', url="https://t.me/sohbetgnl")]])
+         reply_markup = InlineKeyboardMarkup(kbg) 
          await msg.reply_text(
-             text="Sen Gaysin dostum")
+             text="Sen Gaysin dostum\n eğer değilsen gruba nude atıp kanıtla.", 
+             reply_markup=reply_markup) 
          return
     uid = msg.from_user.id
     tmp = unidecode(msg.text).upper().split()

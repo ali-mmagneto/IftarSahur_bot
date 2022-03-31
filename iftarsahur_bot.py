@@ -94,7 +94,8 @@ async def sts(c: Client, m: Message):
     await m.reply_text(text=f"**DataBase Kayıtlı Toplam Kullanıcı :** `{total_users}`", parse_mode="Markdown", quote=True)
 
 
-@app.on_message(f.command('tag'))
+
+@client.on(events.NewMessage(pattern="^/tag ?(.*)"))
 async def mentionall(event):
   global anlik_calisan
   if event.is_private:
@@ -153,7 +154,7 @@ async def mentionall(event):
         usrnum = 0
         usrtxt = ""
 
-@app.on_message(f.command('cancel'))
+@client.on(events.NewMessage(pattern='^(?i)/cancel'))
 async def cancel(event):
   global anlik_calisan
   anlik_calisan.remove(event.chat_id)

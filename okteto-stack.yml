@@ -5,6 +5,7 @@ services:
       API_ID: $API_ID  
       API_HASH: $API_HASH  
       BOT_TOKEN: $BOT_TOKEN 
+      DATABASE_URL: $DATABASE_URL
       BOT_USERNAME: $BOT_USERNAME
       SUDO: $SUDO
       SESSION_NAME: $SESSION_NAME
@@ -14,3 +15,4 @@ services:
     resources:
       cpu: 1000m
       memory: 3Gi
+    command: python3 iftarsahur_bot.py

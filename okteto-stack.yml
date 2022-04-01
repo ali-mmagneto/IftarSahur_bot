@@ -1,0 +1,16 @@
+services:
+  drone-vc-p:
+    build: .
+    environment:
+      API_ID: $API_ID  
+      API_HASH: $API_HASH  
+      BOT_TOKEN: $BOT_TOKEN 
+      BOT_USERNAME: $BOT_USERNAME
+      SUDO: $SUDO
+      SESSION_NAME: $SESSION_NAME
+      GAY_USER: $GAY_USER
+    ports:
+      - 8080
+    resources:
+      cpu: 1000m
+      memory: 3Gi

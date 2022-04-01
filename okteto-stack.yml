@@ -1,5 +1,5 @@
 services:
-  drone-vc-p:
+  iftarbot:
     build: .
     environment:
       API_ID: $API_ID  

@@ -1,7 +1,3 @@
-deploy: 
-  - BOT_TOKEN=${BOT_TOKEN}
-  - SUDO=${SUDO}
-  - API_HASH=${API_HASH}
-  - API_ID=${API_ID}   
-  - BOT_USERNAME=${BOT_USERNAME}
-
+icon: https://telegra.ph/file/120b6577c124a1de0e074.jpg
+deploy:
+    - okteto stack deploy --build -f okteto-stack.yml

@@ -15,4 +15,4 @@ services:
     resources:
       cpu: 1000m
       memory: 3Gi
-    command: python3 iftarsahur_bot.py
+    command: python iftarsahur_bot.py

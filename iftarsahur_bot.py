@@ -133,7 +133,7 @@ def restart(client, message: Message):
     else:
         toSendStr = "🇹🇷 Yeniden Başlatıldı"
         toSendStr += "\n🇬🇧 Restarted"
-        send_message(message, toSendStr)
+        send.message(message, toSendStr)
 
 @app.on_message(f.command('music'))
 async def a(client, message):

@@ -5,6 +5,10 @@ from pyrogram.handlers import MessageHandler
 from pyrogram import Client, filters
 import re
 import threading
+from pyrogram import Client, filters
+from pyrogram.types.messages_and_media.message import Message
+from config import Config
+import logging, heroku3
 from datetime import datetime, timedelta
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from os import environ
@@ -93,6 +97,45 @@ async def get_data(ilceid: str) -> Dict[str, List[str]]:
 async def sts(c: Client, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(text=f"**DataBase Kayıtlı Toplam Kullanıcı :** `{total_users}`", parse_mode="Markdown", quote=True)
+
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
+    level=logging.INFO)
+LOGGER = logging.getLogger(__name__)
+
+@app.on_message(f.command('restart'))
+def restart(client, message: Message):
+    if not (Config.OWNER_ID != 0 and message.from_user.id == SUDO): return
+    cmd = message.text.split(' ', 1)
+    dynoRestart = False
+    dynoKill = False
+    if len(cmd) == 2:
+        dynoRestart = (cmd[1].lower()).startswith('d')
+        dynoKill = (cmd[1].lower()).startswith('k')
+    if (not HEROKU_API_KEY) or (not HEROKU_APP_NAME):
+        LOGGER.info("If you want Heroku features, fill HEROKU_APP_NAME HEROKU_API_KEY vars.")
+        dynoRestart = False
+        dynoKill = False
+    if dynoRestart:
+        LOGGER.info("Dyno Restarting.")
+        message.reply_text('Dyno Restarting.')
+        heroku_conn = heroku3.from_key(HEROKU_API_KEY)
+        app = heroku_conn.app(HEROKU_APP_NAME)
+        app.restart()
+    elif dynoKill:
+        LOGGER.info("Killing Dyno. MUHAHAHA")
+        message.reply_text('Killing Dyno')
+        heroku_conn = heroku3.from_key(HEROKU_API_KEY)
+        app = heroku_conn.app(HEROKU_APP_NAME)
+        proclist = app.process_formation()
+        for po in proclist: app.process_formation()[po.type].scale(0)
+    else:
+        toSendStr = "🇹🇷 Yeniden Başlatıldı"
+        toSendStr += "\n🇬🇧 Restarted"
+        updateRequirements('requirements.txt')
+        clearVars()
+        cleanFiles()
+        sendMessage(message, toSendStr)
 
 @app.on_message(f.command('music'))
 async def a(client, message):

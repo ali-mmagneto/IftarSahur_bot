@@ -106,7 +106,7 @@ LOGGER = logging.getLogger(__name__)
 
 @app.on_message(f.command('restart'))
 def restart(client, message: Message):
-    if not (Config.OWNER_ID != 0 and message.from_user.id == SUDO): return
+    if not (SUDO != 0 and message.from_user.id == SUDO): return
     cmd = message.text.split(' ', 1)
     dynoRestart = False
     dynoKill = False

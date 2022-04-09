@@ -133,8 +133,6 @@ def restart(client, message: Message):
         toSendStr = "🇹🇷 Yeniden Başlatıldı"
         toSendStr += "\n🇬🇧 Restarted"
         updateRequirements('requirements.txt')
-        clearVars()
-        cleanFiles()
         sendMessage(message, toSendStr)
 
 @app.on_message(f.command('music'))

@@ -9,5 +9,4 @@ youtube_search
 requests
 ffmpeg
 telethon
-logging
 heroku3

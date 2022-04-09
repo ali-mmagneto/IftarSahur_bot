@@ -1,4 +1,5 @@
 import json
+from messageFunc import sendMessage
 import os, youtube_dl, requests, time
 from youtube_search import YoutubeSearch
 from pyrogram.handlers import MessageHandler
@@ -133,7 +134,7 @@ def restart(client, message: Message):
     else:
         toSendStr = "🇹🇷 Yeniden Başlatıldı"
         toSendStr += "\n🇬🇧 Restarted"
-        send.Message(message, toSendStr)
+        sendMessage(message, toSendStr)
 
 @app.on_message(f.command('music'))
 async def a(client, message):

@@ -7,7 +7,6 @@ import re
 import threading
 from pyrogram import Client, filters
 from pyrogram.types.messages_and_media.message import Message
-from config import Config
 import logging, heroku3
 from datetime import datetime, timedelta
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent

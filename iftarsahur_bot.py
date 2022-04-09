@@ -347,7 +347,7 @@ async def iftar(client: Client, msg: types.Message):
             m = int((kalan % 3600) / 60)  # kalan dakika
             _kalan = f'{h} saat, {m} dakika'
 
-            mesaj = f'{ilce} için Sıradaki İftar Saati: `{ezan_saat}`\n{ilce} için Sıradaki iftara kalan süre: `{_kalan}`'
+            mesaj = f'{ilce} için **{ezan_saat}** saatine kadar açsın\n{ilce} için **{_kalan}** daha dayan'
             await msg.reply_text(mesaj)
         else:
             await msg.reply_text(f'Nerde yaşıyon olm sen bulamadım.')

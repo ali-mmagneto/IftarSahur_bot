@@ -5,6 +5,13 @@ from youtube_search import YoutubeSearch
 from pyrogram.handlers import MessageHandler
 from pyrogram import Client, filters
 import re
+from pyrogram import Client, filters
+import asyncio
+import random
+from random import choice
+from typing import Callable, Coroutine, Dict, List, Union
+from pyrogram.errors import FloodWait, MessageNotModified
+from pyrogram.types import Chat, Message, User
 import threading
 from pyrogram import Client, filters
 from pyrogram.types.messages_and_media.message import Message
@@ -104,6 +111,50 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
     handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
     level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
+
+def get_text(message: Message) -> [None, str]:
+    text_to_return = message.text
+    if message.text is None:
+        return None
+    if " " in text_to_return:
+        try:
+            return message.text.split(None, 1)[1]
+        except IndexError:
+            return None
+    else:
+        return None
+
+@app.on_message(f.command("ship"))
+async def couple(client, message: Message):
+    if message.chat.type == "private":
+        await message.reply_text("Grupta Çalıştır.")
+        return
+    try:
+        m = await message.reply("Shipliyom...")
+        await asyncio.sleep(1.0)
+        humay = get_text(message)
+        if not humay:
+            humay = "Aşk ❤️:"
+        mentions = ""
+        list_of_users = []
+        async for mentions in client.iter_chat_members(message.chat.id):  
+            if not mentions.user.is_bot: 
+                list_of_users.append(mentions.user.id)
+        if len(list_of_users) < 2:
+            await message.reply_text("Yeterli birey yok.")
+            return
+        m1_id = random.choice(list_of_users)
+        m2_id = random.choice(list_of_users)
+        while m1_id == m2_id:
+            m1_id = random.choice(list_of_users)
+        m1_mention = (await client.get_users(m1_id)).mention
+        m2_mention = (await client.get_users(m2_id)).mention
+        h = f"<b>{humay}</b>\n\n{m1_mention} + {m2_mention} = ❤️"
+        await client.send_message(message.chat.id, h)
+        await m.delete()
+    except Exception as e:
+        print(e)
+        await message.reply_text(f"Hata: {e}\n\n@mmagneto'ya bildir!")
 
 @app.on_message(f.command('restart'))
 def restart(client, message: Message):

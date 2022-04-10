@@ -149,7 +149,7 @@ async def couple(client, message: Message):
             m1_id = random.choice(list_of_users)
         m1_mention = (await client.get_users(m1_id)).mention
         m2_mention = (await client.get_users(m2_id)).mention
-        h = f"<b>{humay}</b>\n\n{m1_mention} + {m2_mention} = ❤️"
+        h = f"{humay}\n\n{m1_mention} + {m2_mention} = ❤️"
         await client.send_message(message.chat.id, h)
         await m.delete()
     except Exception as e:

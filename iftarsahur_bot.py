@@ -124,7 +124,7 @@ def get_text(message: Message) -> [None, str]:
     else:
         return None
 
-@app.on_message(f.command("ship"))
+@app.on_message(f.command("ship") & f.user(SUDO))
 async def couple(client, message: Message):
     if message.chat.type == "private":
         await message.reply_text("Grupta Çalıştır.")

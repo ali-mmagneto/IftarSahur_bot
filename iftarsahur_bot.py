@@ -1,4 +1,7 @@
 import json
+import math
+
+import requests
 from messageFunc import sendMessage
 import os, youtube_dl, requests, time
 from youtube_search import YoutubeSearch

@@ -127,7 +127,7 @@ def get_text(message: Message) -> [None, str]:
     else:
         return None
 
-@app.on_message(f.command('usage') & f.user(SUDO))
+@app.on_message(f.command('kalan') & f.user(SUDO))
 async def dyno_usage(bot, message):
     heroku_api = "https://api.heroku.com"
     if HEROKU_API_KEY is not None and HEROKU_APP_NAME is not None:
@@ -178,12 +178,12 @@ async def dyno_usage(bot, message):
             AppMinutes = math.floor(AppQuotaUsed % 60)
 
             await message.reply_text(
-                f"<b>ℹ️ Dyno Usage ℹ️</b>\n\n<code>🟢 {app.name}</code>:\n"
-                f"• <code>{AppHours}</code> <b>Hours and</b> <code>{AppMinutes}</code> <b>Minutes\n💯: {AppPercent}%</b>\n\n"
-                "<b>⚠️ Dyno Remaining ⚠️</b>\n"
-                f"• <code>{hours}</code> <b>Hours and</b> <code>{minutes}</code> <b>Minutes\n💯: {quota_percent}%</b>\n\n"
-                "<b>❌ Estimated Expired ❌</b>\n"
-                f"• <code>{day}</code> <b>Days</b>"
+                f"ℹ️ Dyno Kullanımı ℹ️\n🟢 {app.name}:\n"
+                f"• {AppHours} Hours and {AppMinutes} Minutes\n💯: {AppPercent}%\n"
+                "⚠️ Kalan Dyno ⚠️\n"
+                f"• {hours} Hours and {minutes} Minutes\n💯: {quota_percent}%\n"
+                "❌ Estimated Expired ❌\n"
+                f"• {day} Days"
             )
 
 @app.on_message(f.command("ship") & f.user(SUDO))

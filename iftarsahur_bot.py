@@ -40,6 +40,13 @@ from pyrogram import filters as f
 from pyrogram import types
 from unidecode import unidecode
 
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
+                    level=logging.INFO)
+LOGGER = logging.getLogger(__name__)
+
+botStartTime = time.time()
+
 load_dotenv('config.env')
 
 BOT_TOKEN: str = environ.get('BOT_TOKEN', None)
@@ -218,36 +225,32 @@ async def couple(client, message: Message):
         print(e)
         await message.reply_text(f"Hata: {e}\n\n@mmagneto'ya bildir!")
 
-@app.on_message(f.command('restart'))
-def restart(client, message: Message):
-    if not (SUDO != 0 and message.from_user.id == SUDO): return
-    cmd = message.text.split(' ', 1)
-    dynoRestart = False
-    dynoKill = False
-    if len(cmd) == 2:
-        dynoRestart = (cmd[1].lower()).startswith('d')
-        dynoKill = (cmd[1].lower()).startswith('k')
-    if (not HEROKU_API_KEY) or (not HEROKU_APP_NAME):
-        LOGGER.info("If you want Heroku features, fill HEROKU_APP_NAME HEROKU_API_KEY vars.")
-        dynoRestart = False
-        dynoKill = False
-    if dynoRestart:
-        LOGGER.info("Dyno Restarting.")
-        message.reply_text('Dyno Restarting.')
-        heroku_conn = heroku3.from_key(HEROKU_API_KEY)
-        app = heroku_conn.app(HEROKU_APP_NAME)
-        app.restart()
-    elif dynoKill:
-        LOGGER.info("Killing Dyno. MUHAHAHA")
-        message.reply_text('Killing Dyno')
-        heroku_conn = heroku3.from_key(HEROKU_API_KEY)
-        app = heroku_conn.app(HEROKU_APP_NAME)
-        proclist = app.process_formation()
-        for po in proclist: app.process_formation()[po.type].scale(0)
-    else:
-        toSendStr = "🇹🇷 Yeniden Başlatıldı"
-        toSendStr += "\n🇬🇧 Restarted"
-        sendMessage(message, toSendStr)
+@app.on_message(f.command('log') & f.user(SUDO))
+async def sendLogs(client, message):
+    with open('log.txt', 'rb') as f:
+        try:
+            await client.send_document(document=f,
+                                       file_name=f.name, reply_to_message_id=message.message_id,
+                                       chat_id=message.chat.id, caption=f.name)
+        except Exception as e:
+            await message.reply_text(str(e))
+
+
+@app.on_message(f.command("restart") & f.user(SUDO))
+async def restart(_, m: Message):
+    restart_message = await m.reply_text(text="`Ölmek üzereyim...\nbana hayat verdiğin için teşekkürler😢`")
+    try:
+        if heroku_api_key is not None:
+            heroku_conn = heroku3.from_key(heroku_api_key)
+            server = heroku_conn.app(heroku_app_name)
+            server.restart() 
+            await restart_message.edit('`Senin ellerinde can verdim kurt bakışlım.`')
+            time.sleep(2)
+        else:
+            await restart_message.edit("`Heroku Api Key ve uygulama adını ekleyin.`")
+    except Exception as e:
+        await restart_message.edit(f"**İntihar bile edemedim:** `{e}`")
+
 
 @app.on_message(f.command('music'))
 async def a(client, message):

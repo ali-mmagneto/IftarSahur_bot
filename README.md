@@ -13,6 +13,3 @@ mv config.env.example config.env
 pip3 install -r requirements.txt
 python3 iftarsahur_bot.py
 ```
-
-## İletişim
-Telegram: [@kursadHD](https://t.me/kursadHD)
